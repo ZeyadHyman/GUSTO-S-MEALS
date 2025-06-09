@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap");
+@import "tailwindcss";
+
+body {
+  font-family: "Readex Pro", sans-serif;
+}
+
+:root {
+  --color-primary: #F4A261;    /* Soft orange for warmth */
+  --color-accent: #A9CBA4;     /* Muted sage green for contrast */
+  --color-background: #F5F5F0; /* Off-white for a clean base */
+  --color-text-dark: #2F2F2F;  /* Dark gray for readability */
+  --color-secondary: #8A4A2B;  /* Rich brown as an alternative warm tone */
+  --color-accent-vibrant: #4CAF50; /* Vibrant green for highlights */
+  --color-cream: #EDE4D8;      /* Cream as an alternative background */
+  --color-text-black: #1A1A1A; /* Near-black for strong contrast */
+  --color-white: #FFFFFF;      /* White for light text on dark backgrounds */
+}
+
+.bg-primary { background-color: var(--color-primary); }
+.text-primary { color: var(--color-primary); }
+.bg-accent { background-color: var(--color-accent); }
+.text-accent { color: var(--color-accent); }
+.bg-background { background-color: var(--color-background); }
+.text-background { color: var(--color-background); }
+.bg-secondary { background-color: var(--color-secondary); }
+.text-secondary { color: var(--color-secondary); }
+.bg-accent-vibrant { background-color: var(--color-accent-vibrant); }
+.text-accent-vibrant { color: var(--color-accent-vibrant); }
+.bg-cream { background-color: var(--color-cream); }
+.text-cream { color: var(--color-cream); }
+.bg-text-dark { background-color: var(--color-text-dark); }
+.text-text-dark { color: var(--color-text-dark); }
+.bg-text-black { background-color: var(--color-text-black); }
+.text-text-black { color: var(--color-text-black); }
+.bg-white { background-color: var(--color-white); }
+.text-white { color: var(--color-white); }

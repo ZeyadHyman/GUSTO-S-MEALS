@@ -1,17 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap");
 @import "tailwindcss";
 
-:root {
+@theme {
   --color-primary: #f4a261;
   --color-text-dark: #2d2d2d;
   --color-text-light: #ffffff;
   --color-background: #ffffff;
   --color-cream: #ede4d8;
   --color-accent-vibrant: #ff6347;
-  --color-accent: #a9cba4; /* Muted sage green for contrast */
-  --color-secondary: #8a4a2b; /* Rich brown as an alternative warm tone */
-  --color-text-black: #1a1a1a; /* Near-black for strong contrast */
-  --color-white: #ffffff; /* White for light text on dark backgrounds */
+  --color-accent: #a9cba4;
+  --color-secondary: #8a4a2b;
+  --color-text-black: #1a1a1a;
+  --color-white: #ffffff;
 }
 
 ::selection {
@@ -30,59 +30,4 @@ body {
   color: var(--color-text-dark);
   margin: 0;
   padding: 0;
-}
-
-.bg-primary {
-  background-color: var(--color-primary);
-}
-.text-primary {
-  color: var(--color-primary);
-}
-.bg-accent {
-  background-color: var(--color-accent);
-}
-.text-accent {
-  color: var(--color-accent);
-}
-.bg-background {
-  background-color: var(--color-background);
-}
-.text-background {
-  color: var(--color-background);
-}
-.bg-secondary {
-  background-color: var(--color-secondary);
-}
-.text-secondary {
-  color: var(--color-secondary);
-}
-.bg-accent-vibrant {
-  background-color: var(--color-accent-vibrant);
-}
-.text-accent-vibrant {
-  color: var(--color-accent-vibrant);
-}
-.bg-cream {
-  background-color: var(--color-cream);
-}
-.text-cream {
-  color: var(--color-cream);
-}
-.bg-text-dark {
-  background-color: var(--color-text-dark);
-}
-.text-text-dark {
-  color: var(--color-text-dark);
-}
-.bg-text-black {
-  background-color: var(--color-text-black);
-}
-.text-text-black {
-  color: var(--color-text-black);
-}
-.bg-white {
-  background-color: var(--color-white);
-}
-.text-white {
-  color: var(--color-white);
 }

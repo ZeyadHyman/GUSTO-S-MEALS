@@ -1,98 +1,140 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function Landing() {
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-[calc(100vh-66px)] bg-text-black flex flex-col-reverse lg:flex-row items-center justify-between px-4 sm:px-6 lg:px-16 py-12 gap-8 lg:gap-0"
-    >
-      {/* Text Content */}
+    <div className="min-h-screen bg-gradient-to-b from-text-black to-text-dark pt-10 lg:pt-0">
+      {/* Hero Section */}
       <motion.div
-        initial={{ x: -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
-        className="z-10 lg:min-w-3xl text-center lg:text-left lg:ml-50 flex-1"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
+        className="relative min-h-screen flex flex-col-reverse lg:flex-row items-center justify-between px-4 sm:px-6 lg:px-16 py-12 gap-8 lg:gap-0 overflow-hidden"
       >
-        <motion.h1
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white"
-        >
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            Discover Tasty <span className="text-primary">Recipes</span>
-          </motion.span>
-          <br />
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-          >
-            From Around <span className="text-primary">the World</span>
-          </motion.span>
-        </motion.h1>
-        <motion.p
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          className="text-cream text-lg sm:text-xl mt-6"
-        >
-          Explore delicious meals, cooking inspiration, and recipe details.
-          Start your next culinary adventure today!
-        </motion.p>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
+        </div>
+
+        {/* Text Content */}
         <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.1 }}
-          className="mt-8 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4"
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className="z-10 lg:min-w-3xl text-center lg:text-left lg:ml-50 flex-1"
         >
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="#explore"
-            className="bg-primary text-white px-6 py-3 rounded-full text-lg hover:bg-accent-vibrant transition-colors duration-300"
+          <motion.h1
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.2 }}
+            className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
           >
-            Explore Recipes
-          </motion.a>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="#categories"
-            className="bg-white text-text-black px-6 py-3 rounded-full text-lg hover:bg-cream transition-colors duration-300"
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              className="block"
+            >
+              Discover Tasty{" "}
+              <span className="text-primary relative">
+                Recipes
+                <motion.span
+                  className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </span>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+              className="block mt-2"
+            >
+              From Around{" "}
+              <span className="text-primary relative">
+                the World
+                <motion.span
+                  className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.2, delay: 0.1 }}
+                />
+              </span>
+            </motion.span>
+          </motion.h1>
+          <motion.p
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.2, delay: 0.2 }}
+            className="text-cream text-lg sm:text-xl mt-8 max-w-2xl"
           >
-            Browse Categories
-          </motion.a>
+            Explore delicious meals, cooking inspiration, and recipe details.
+            Start your next culinary adventure today!
+          </motion.p>
+          <motion.div
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.2, delay: 0.3 }}
+            className="mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4"
+          >
+            <Link
+              to="/meals"
+              className="group relative bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-primary/20"
+            >
+              <span className="relative z-10">Explore Recipes</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-primary to-accent-vibrant opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                initial={false}
+                whileHover={{ scale: 1.05 }}
+              />
+            </Link>
+            <Link
+              to="/categories"
+              className="group relative bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-200 hover:bg-white/20"
+            >
+              <span className="relative z-10">Browse Categories</span>
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* Image */}
+        <motion.div
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className="z-10 w-full max-w-xl lg:max-w-2xl transform lg:mr-50 flex justify-center items-center"
+        >
+          <motion.div
+            whileHover={{ scale: 1.02, rotate: 1 }}
+            transition={{ duration: 0.2 }}
+            className="relative"
+          >
+            <motion.div
+              className="absolute inset-0 bg-primary/20 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.4, 0.3],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <img
+              src="Images/pan.png"
+              alt="Cooking Pan with Food"
+              className="relative w-80 lg:w-full h-auto object-contain"
+            />
+          </motion.div>
         </motion.div>
       </motion.div>
 
-      {/* Image */}
-      <motion.div
-        initial={{ x: 50, opacity: 0, rotate: 0 }}
-        animate={{ x: 0, opacity: 1, rotate: 6 }}
-        transition={{
-          delay: 0.3,
-          type: "spring",
-          stiffness: 100,
-          damping: 20,
-        }}
-        className="z-10 w-full max-w-xl lg:max-w-2xl transform lg:mr-50 flex justify-center items-center"
-      >
-        <motion.img
-          whileHover={{ scale: 1.05, rotate: 8 }}
-          whileTap={{ scale: 0.9, rotate: 8 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          src="Images/pan.png"
-          alt="Cooking Pan with Food"
-          className="w-80 lg:w-full h-auto object-contain"
-        />
-      </motion.div>
-    </motion.div>
+
+    </div>
   );
 }
 

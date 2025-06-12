@@ -35,8 +35,8 @@ html {
 /* Improve tap target sizes */
 button,
 a {
-  min-height: 44px;
-  min-width: 44px;
+  min-block-size: 44px;
+  min-inline-size: 44px;
 }
 
 /* Prevent pull-to-refresh on mobile */
@@ -188,8 +188,8 @@ textarea {
 
 /* Cross-browser scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  inline-size: 8px;
+  block-size: 8px;
 }
 
 ::-webkit-scrollbar-track {

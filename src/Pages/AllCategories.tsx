@@ -68,19 +68,7 @@ function AllCategories() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-bold text-text-dark mb-3">
-            Featured Categories
-          </h2>
-          <p className="text-gray-600 max-w-md mx-auto font-sans">
-            Discover our handpicked selection of popular recipe categories
-          </p>
-        </motion.div>
+
 
         <AnimatePresence>
           {isLoading ? (
@@ -133,7 +121,7 @@ function AllCategories() {
                 key="categories"
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16"
               >
-                {data.categories.map((category, index) => (
+                {data?.categories.map((category, index) => (
                   <motion.div
                     key={category.idCategory}
                     custom={index}

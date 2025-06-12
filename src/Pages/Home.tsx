@@ -1,11 +1,13 @@
-import Categories from "../Components/Categories";
-import Landing from "../Components/Landing";
+import Categories from "../Components/Home/Categories";
+import Landing from "../Components/Home/Landing";
+import WorldKitchen from "../Components/Home/WorldKitchen";
 
 function Home() {
   return (
     <>
       <Landing />
       <Categories />
+      <WorldKitchen />
     </>
   );
 }

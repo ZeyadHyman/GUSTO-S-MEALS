@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectCards } from "swiper/modules";
+
 
 interface Category {
   idCategory: string;
@@ -42,6 +45,48 @@ function Categories() {
     }),
   };
 
+  const CategoryCard = ({
+    category,
+    index,
+  }: {
+    category: Category;
+    index: number;
+  }) => (
+    <motion.div
+      custom={index}
+      initial="hidden"
+      animate="visible"
+      variants={cardVariants}
+      whileHover={{ scale: 1.03 }}
+      className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full"
+    >
+      <div className="relative h-56 overflow-hidden">
+        <img
+          src={category.strCategoryThumb}
+          alt={`Category: ${category.strCategory}`}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <span className="absolute top-4 left-4 bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full group-hover:bg-primary/80 transition-colors">
+          {category.strCategory}
+        </span>
+      </div>
+      <div className="p-6">
+        <p className="text-gray-600 text-sm mb-4 font-sans line-clamp-3">
+          {category.strCategoryDescription}
+        </p>
+        <Link
+          to={`/recipes/${category.strCategory.toLowerCase()}`}
+          className="block w-full px-4 py-2 text-center bg-primary text-white rounded-lg hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-95 transition-all duration-300"
+          aria-label={`View recipes for ${category.strCategory}`}
+        >
+          View Recipes
+        </Link>
+      </div>
+    </motion.div>
+  );
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -68,21 +113,7 @@ function Categories() {
       </section>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-bold text-text-dark mb-3">
-            Featured Categories
-          </h2>
-          <p className="text-gray-600 max-w-md mx-auto font-sans">
-            Discover our handpicked selection of popular recipe categories
-          </p>
-        </motion.div>
-
+      <div className="container mx-auto lg:px-4 py-5 lg:py-16">
         <AnimatePresence>
           {isLoading ? (
             <motion.div
@@ -130,45 +161,38 @@ function Categories() {
             </motion.div>
           ) : (
             <>
+              {/* Mobile Swiper */}
+              <div className="md:hidden mb-10 px-4 ">
+                <Swiper
+                  modules={[Autoplay, EffectCards]}
+                  spaceBetween={10}
+                  slidesPerView={1.4}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                  }}
+                  className="h-[400px]"
+                >
+                  {mainCategories.map((category, index) => (
+                    <SwiperSlide key={category.idCategory} className="scale-95">
+                      <CategoryCard category={category} index={index} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+
+              {/* Desktop Grid */}
               <motion.div
                 key="categories"
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16"
+                className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-10"
               >
                 {mainCategories.map((category, index) => (
-                  <motion.div
+                  <CategoryCard
                     key={category.idCategory}
-                    custom={index}
-                    initial="hidden"
-                    animate="visible"
-                    variants={cardVariants}
-                    whileHover={{ scale: 1.03 }}
-                    className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-                  >
-                    <div className="relative h-56 overflow-hidden">
-                      <img
-                        src={category.strCategoryThumb}
-                        alt={`Category: ${category.strCategory}`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <span className="absolute top-4 left-4 bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full group-hover:bg-primary/80 transition-colors">
-                        {category.strCategory}
-                      </span>
-                    </div>
-                    <div className="p-6">
-                      <p className="text-gray-600 text-sm mb-4 font-sans line-clamp-3">
-                        {category.strCategoryDescription}
-                      </p>
-                      <Link
-                        to={`/recipes/${category.strCategory.toLowerCase()}`}
-                        className="block w-full px-4 py-2 text-center bg-primary text-white rounded-lg hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-95 transition-all duration-300"
-                        aria-label={`View recipes for ${category.strCategory}`}
-                      >
-                        View Recipes
-                      </Link>
-                    </div>
-                  </motion.div>
+                    category={category}
+                    index={index}
+                  />
                 ))}
               </motion.div>
 

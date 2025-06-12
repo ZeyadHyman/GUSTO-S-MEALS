@@ -134,7 +134,7 @@ function NoPage() {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="min-h-[calc(100vh-66px)] flex items-center justify-center bg-background relative overflow-hidden px-4"
+      className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-background relative overflow-hidden px-4"
     >
       {/* Floating Icons Background */}
       {[...Array(6)].map((_, index) => {

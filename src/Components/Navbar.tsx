@@ -1,7 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { FaUtensils, FaSearch } from "react-icons/fa";
+import {
+  FaUtensils,
+  FaSearch,
+} from "react-icons/fa";
 
 function Navbar() {
   const [opened, setOpened] = useState(false);
@@ -17,7 +20,6 @@ function Navbar() {
       }
     };
 
-    // Set initial state
     if (isHomePage) {
       setScrolled(window.scrollY > 20);
     } else {
@@ -32,7 +34,8 @@ function Navbar() {
     { name: "Home", path: "/" },
     { name: "Meals", path: "/meals" },
     { name: "Categories", path: "/categories" },
-    { name: "About", path: "/about" },
+    { name: "Random Meal", path: "/random-meal" },
+    { name: "AI Chef", path: "/ai-chef" },
   ];
 
   return (
@@ -40,7 +43,7 @@ function Navbar() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
-      className={` top-0 left-0 right-0 px-6 py-4 flex items-center justify-between z-50 transition-all duration-200 ${
+      className={`top-0 left-0 right-0 px-4 lg:px-6 py-3 flex items-center justify-between z-50 transition-all duration-200 ${
         isHomePage
           ? scrolled
             ? "bg-white/95 backdrop-blur-md shadow-lg fixed"
@@ -61,7 +64,7 @@ function Navbar() {
           />
         </motion.div>
         <motion.span
-          className={`text-2xl lg:text-4xl font-bold ${
+          className={`text-xl lg:text-2xl font-bold ${
             isHomePage && !scrolled ? "text-white" : "text-text-dark"
           }`}
           whileHover={{ scale: 1.05 }}
@@ -72,12 +75,12 @@ function Navbar() {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center gap-8 ">
+      <div className="hidden md:flex items-center gap-6">
         {navItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
-            className={`group relative font-medium ${
+            className={`group relative font-medium flex items-center gap-2 ${
               isHomePage && !scrolled
                 ? "text-white hover:text-primary"
                 : "text-text-dark hover:text-primary"
@@ -198,7 +201,7 @@ function Navbar() {
                   key={item.path}
                   to={item.path}
                   onClick={() => setOpened(false)}
-                  className="py-2 px-4 text-text-dark hover:text-primary transition-colors duration-200"
+                  className="py-3 px-4 text-text-dark hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200 flex items-center gap-3"
                 >
                   {item.name}
                 </Link>

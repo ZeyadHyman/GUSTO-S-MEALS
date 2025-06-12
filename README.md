@@ -1,6 +1,6 @@
 # Gusto's Meals ✨
 
-![Gusto's Meals Screenshot](https://drive.google.com/file/d/1oAaO4XckdIc-ILE1sPqbgQJVkLuVmK9s/view?usp=**sharing**)
+![Gusto's Meals Screenshot](https://drive.google.com/uc?export=view&id=1oAaO4XckdIc-ILE1sPqbgQJVkLuVmK9s)
 
 Welcome to **Gusto's Meals**, your ultimate culinary companion! This dynamic web application, crafted with the power of React, TypeScript, and Vite, is designed to transform your cooking experience. Dive into a world of flavors, effortlessly discover new recipes, and unleash your inner chef with our intuitive features.
 

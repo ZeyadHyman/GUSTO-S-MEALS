@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
 
 interface Ingredient {
   ingredient: string;
@@ -17,8 +16,7 @@ interface SingleMeal {
   strMealThumb: string;
   strYoutube: string;
   strSource: string;
-  [key: `strIngredient${number}`]: string;
-  [key: `strMeasure${number}`]: string;
+  ingredients: Ingredient[];
 }
 
 interface SingleMealResponse {
@@ -47,35 +45,28 @@ function SingleRecipe() {
 
   const meal = data?.meals ? data.meals[0] : null;
 
-  const getIngredients = useMemo(
-    () =>
-      (mealData: SingleMeal): Ingredient[] => {
-        const ingredients: Ingredient[] = [];
-        for (let i = 1; i <= 20; i++) {
-          const ingredient = mealData[`strIngredient${i}`];
-          const measure = mealData[`strMeasure${i}`];
-          if (
-            ingredient &&
-            typeof ingredient === "string" &&
-            ingredient.trim() !== ""
-          ) {
-            ingredients.push({
-              ingredient,
-              measure: typeof measure === "string" ? measure : "",
-            });
-          }
-        }
-        return ingredients;
-      },
-    []
-  );
-
   const mealWithIngredients = meal
-    ? { ...meal, ingredients: getIngredients(meal) }
+    ? {
+        ...meal,
+        ingredients: Array.from({ length: 20 }, (_, i) => {
+          const ingredient = meal[
+            `strIngredient${i + 1}` as keyof SingleMeal
+          ] as string;
+          const measure = meal[
+            `strMeasure${i + 1}` as keyof SingleMeal
+          ] as string;
+          return ingredient?.trim()
+            ? { ingredient, measure: measure || "" }
+            : null;
+        }).filter((item): item is Ingredient => !!item),
+      }
     : null;
 
+  
+  console.log(mealWithIngredients);
+  
   return (
-    <div className="min-h-screen bg-cream text-text-dark font-sans py-12">
+    <div className="min-h-screen bg-amber-50 text-gray-900 font-sans">
       {/* Loading State */}
       {isLoading && (
         <motion.div
@@ -84,7 +75,7 @@ function SingleRecipe() {
           className="flex flex-col items-center justify-center min-h-[50vh] space-y-4"
         >
           <svg
-            className="animate-spin h-10 w-10 text-primary"
+            className="animate-spin h-10 w-10 text-amber-600"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -98,9 +89,7 @@ function SingleRecipe() {
               strokeLinejoin="round"
             />
           </svg>
-          <p className="text-lg font-medium text-text-dark">
-            Loading recipe...
-          </p>
+          <p className="text-lg font-medium text-gray-700">Loading recipe...</p>
         </motion.div>
       )}
 
@@ -109,14 +98,14 @@ function SingleRecipe() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center p-6 bg-cream rounded-2xl shadow-sm max-w-md mx-auto mt-8"
+          className="text-center p-6 bg-red-100 rounded-2xl shadow-sm max-w-md mx-auto mt-8"
         >
-          <p className="text-accent-vibrant font-medium mb-4">
+          <p className="text-red-700 font-medium mb-4">
             Error: {(error as Error).message}
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
           >
             Try Again
           </button>
@@ -129,64 +118,72 @@ function SingleRecipe() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="container mx-auto px-4 py-10 max-w-5xl"
+          className="container mx-auto px-4 py-10 max-w-4xl"
         >
           {/* Hero Section */}
           <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
             <img
               src={mealWithIngredients.strMealThumb || "/placeholder-image.jpg"}
               alt={mealWithIngredients.strMeal}
-              className="w-full h-80 sm:h-96 object-cover object-center"
+              className="w-full h-80 sm:h-96 object-cover"
               loading="lazy"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-              <h1 className="text-3xl sm:text-4xl font-bold text-white leading-none">
+              <h1 className="text-3xl sm:text-4xl font-bold text-white">
                 {mealWithIngredients.strMeal}
               </h1>
             </div>
           </div>
 
-          {/* Metadata and Ingredients */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div className="md:col-span-2 bg-white rounded-2xl shadow-lg p-6">
-              <h2 className="text-xl font-semibold text-primary mb-4">
-                Category & Area
-              </h2>
-              <p className="text-lg text-text-dark mb-2">
-                <span className="font-semibold">Category:</span>{" "}
-                {mealWithIngredients.strCategory}
-              </p>
-              <p className="text-lg text-text-dark">
-                <span className="font-semibold">Area:</span>{" "}
-                {mealWithIngredients.strArea}
-              </p>
+          {/* Metadata */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <h2 className="text-lg font-semibold text-amber-700 mb-2">
+                  🍴 Category
+                </h2>
+                <p className="text-gray-700">
+                  {mealWithIngredients.strCategory}
+                </p>
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-amber-700 mb-2">
+                  🌍 Area
+                </h2>
+                <p className="text-gray-700">{mealWithIngredients.strArea}</p>
+              </div>
             </div>
+          </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6">
-              <h2 className="text-xl font-semibold text-primary mb-4">
-                Ingredients
-              </h2>
-              <ul className="list-disc list-inside space-y-2 text-text-dark">
-                {mealWithIngredients.ingredients.map((item, index) => (
-                  <li key={index} className="text-base">
-                    <span className="font-medium">{item.ingredient}</span>:{" "}
-                    {item.measure}
-                  </li>
-                ))}
-              </ul>
+          {/* Ingredients */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 className="text-xl font-semibold text-amber-700 mb-4">
+              Ingredients
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {mealWithIngredients.ingredients.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 text-gray-700"
+                >
+                  <span className="text-amber-600">•</span>
+                  <span className="font-medium">{item.ingredient}</span>
+                  <span className="text-gray-500">({item.measure})</span>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Instructions */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-primary mb-4">
+            <h2 className="text-xl font-semibold text-amber-700 mb-4">
               Instructions
             </h2>
             {mealWithIngredients.strInstructions
               .split("\r\n\r\n")
               .map((paragraph, index) => (
-                <p key={index} className="mb-3 text-text-dark leading-relaxed">
-                  <span className="font-semibold text-primary mr-2">
+                <p key={index} className="mb-3 text-gray-700 leading-relaxed">
+                  <span className="text-amber-600 font-medium mr-2">
                     {index + 1}.
                   </span>
                   {paragraph}
@@ -203,9 +200,20 @@ function SingleRecipe() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center px-6 py-3 bg-accent-vibrant text-white font-medium rounded-lg shadow-sm hover:bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-accent-vibrant focus:ring-offset-2"
+                className="flex items-center justify-center px-6 py-3 bg-amber-600 text-white font-medium rounded-lg shadow-sm hover:bg-amber-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                 aria-label="Watch recipe video on YouTube"
               >
+                <svg
+                  className="h-5 w-5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 8.5c0-2.485-2.015-4.5-4.5-4.5H7.5C5.015 4 3 6.015 3 8.5v7c0 2.485 2.015 4.5 4.5 4.5h9c2.485 0 4.5-2.015 4.5-4.5v-7zM10 15V9l5 3-5 3z"
+                    fill="currentColor"
+                  />
+                </svg>
                 Watch on YouTube
               </motion.a>
             )}
@@ -216,9 +224,23 @@ function SingleRecipe() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center px-6 py-3 bg-secondary text-white font-medium rounded-lg shadow-sm hover:bg-text-dark transition-colors focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                className="flex items-center justify-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg shadow-sm hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                 aria-label="View recipe source"
               >
+                <svg
+                  className="h-5 w-5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13 3h8v8M11 21H3v-8m10-4l8 8m-8-12l-8 8"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
                 View Source
               </motion.a>
             )}

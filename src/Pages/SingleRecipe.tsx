@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FaYoutube, FaExternalLinkAlt, FaSpinner } from "react-icons/fa";
 
 interface Ingredient {
   ingredient: string;
@@ -16,7 +17,7 @@ interface SingleMeal {
   strMealThumb: string;
   strYoutube: string;
   strSource: string;
-  ingredients: Ingredient[];
+  [key: string]: any; // For dynamic access to strIngredient and strMeasure
 }
 
 interface SingleMealResponse {
@@ -37,6 +38,7 @@ async function fetchSingleRecipe(idMeal: string): Promise<SingleMealResponse> {
 
 function SingleRecipe() {
   const { idMeal } = useParams<{ idMeal: string }>();
+
   const { data, error, isLoading } = useQuery({
     queryKey: ["singleMeal", idMeal],
     queryFn: () => fetchSingleRecipe(idMeal!),
@@ -49,21 +51,15 @@ function SingleRecipe() {
     ? {
         ...meal,
         ingredients: Array.from({ length: 20 }, (_, i) => {
-          const ingredient = meal[
-            `strIngredient${i + 1}` as keyof SingleMeal
-          ] as string;
-          const measure = meal[
-            `strMeasure${i + 1}` as keyof SingleMeal
-          ] as string;
-          return ingredient?.trim()
-            ? { ingredient, measure: measure || "" }
-            : null;
+          const ingredient = meal[`strIngredient${i + 1}`]?.trim();
+          const measure = meal[`strMeasure${i + 1}`]?.trim();
+          return ingredient ? { ingredient, measure: measure || "" } : null;
         }).filter((item): item is Ingredient => !!item),
       }
     : null;
 
   return (
-    <div className=" text-gray-900 ">
+    <div className="text-gray-100">
       {/* Loading State */}
       {isLoading && (
         <motion.div
@@ -71,22 +67,13 @@ function SingleRecipe() {
           animate={{ opacity: 1 }}
           className="flex flex-col items-center justify-center min-h-[50vh] space-y-4"
         >
-          <svg
+          <FaSpinner
             className="animate-spin h-10 w-10 text-amber-600"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
             aria-label="Loading recipe details"
-          >
-            <path
-              d="M12 2V6M12 18V22M6 12H2M22 12H18M5.64 5.64L3.22 3.22M18.36 18.36L20.78 20.78M5.64 18.36L3.22 20.78M18.36 5.64L20.78 3.22"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <p className="text-lg font-medium text-gray-700">Loading recipe...</p>
+          />
+          <p className="text-lg font-medium text-gray-700">
+            Loading recipe...
+          </p>
         </motion.div>
       )}
 
@@ -109,7 +96,7 @@ function SingleRecipe() {
         </motion.div>
       )}
 
-      {/* Recipe Content */}
+      {/* Main Recipe Content */}
       {mealWithIngredients && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -117,7 +104,7 @@ function SingleRecipe() {
           transition={{ duration: 0.6 }}
           className="container mx-auto px-4 py-10 max-w-7xl"
         >
-          {/* Hero Section */}
+          {/* Hero Image */}
           <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
             <img
               src={mealWithIngredients.strMealThumb || "/placeholder-image.jpg"}
@@ -133,21 +120,25 @@ function SingleRecipe() {
           </div>
 
           {/* Metadata */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="bg-white rounded-2xl shadow-xl p-8 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
-                <h2 className="text-lg font-semibold text-amber-700 mb-2">
-                  🍴 Category
+                <h2 className="text-xl font-bold text-amber-600 mb-1 tracking-wide flex items-center gap-2">
+                  <span>🌍</span>
+                  <span>Country</span>
                 </h2>
-                <p className="text-gray-700">
-                  {mealWithIngredients.strCategory}
+                <p className="text-gray-800 text-base leading-relaxed">
+                  {mealWithIngredients.strArea || "N/A"}
                 </p>
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-amber-700 mb-2">
-                  🌍 Area
+                <h2 className="text-xl font-bold text-amber-600 mb-1 tracking-wide flex items-center gap-2">
+                  <span>🍴</span>
+                  <span>Category</span>
                 </h2>
-                <p className="text-gray-700">{mealWithIngredients.strArea}</p>
+                <p className="text-gray-800 text-base leading-relaxed">
+                  {mealWithIngredients.strCategory || "N/A"}
+                </p>
               </div>
             </div>
           </div>
@@ -165,7 +156,9 @@ function SingleRecipe() {
                 >
                   <span className="text-amber-600">•</span>
                   <span className="font-medium">{item.ingredient}</span>
-                  <span className="text-gray-500">({item.measure})</span>
+                  <span className="text-gray-500">
+                    ({item.measure})
+                  </span>
                 </div>
               ))}
             </div>
@@ -177,9 +170,13 @@ function SingleRecipe() {
               Instructions
             </h2>
             {mealWithIngredients.strInstructions
-              .split("\r\n\r\n")
+              .split("\r\n")
+              .filter((p) => p.trim() !== "")
               .map((paragraph, index) => (
-                <p key={index} className="mb-3 text-gray-700 leading-relaxed">
+                <p
+                  key={index}
+                  className="mb-3 text-gray-700 leading-relaxed"
+                >
                   <span className="text-amber-600 font-medium mr-2">
                     {index + 1}.
                   </span>
@@ -189,7 +186,7 @@ function SingleRecipe() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             {mealWithIngredients.strYoutube && (
               <motion.a
                 href={mealWithIngredients.strYoutube}
@@ -200,17 +197,7 @@ function SingleRecipe() {
                 className="flex items-center justify-center px-6 py-3 bg-amber-600 text-white font-medium rounded-lg shadow-sm hover:bg-amber-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                 aria-label="Watch recipe video on YouTube"
               >
-                <svg
-                  className="h-5 w-5 mr-2"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21 8.5c0-2.485-2.015-4.5-4.5-4.5H7.5C5.015 4 3 6.015 3 8.5v7c0 2.485 2.015 4.5 4.5 4.5h9c2.485 0 4.5-2.015 4.5-4.5v-7zM10 15V9l5 3-5 3z"
-                    fill="currentColor"
-                  />
-                </svg>
+                <FaYoutube className="h-5 w-5 mr-2" />
                 Watch on YouTube
               </motion.a>
             )}
@@ -224,20 +211,7 @@ function SingleRecipe() {
                 className="flex items-center justify-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg shadow-sm hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                 aria-label="View recipe source"
               >
-                <svg
-                  className="h-5 w-5 mr-2"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13 3h8v8M11 21H3v-8m10-4l8 8m-8-12l-8 8"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <FaExternalLinkAlt className="h-5 w-5 mr-2" />
                 View Source
               </motion.a>
             )}

@@ -62,11 +62,8 @@ function SingleRecipe() {
       }
     : null;
 
-  
-  console.log(mealWithIngredients);
-  
   return (
-    <div className="min-h-screen bg-amber-50 text-gray-900 font-sans">
+    <div className=" text-gray-900 ">
       {/* Loading State */}
       {isLoading && (
         <motion.div
@@ -118,7 +115,7 @@ function SingleRecipe() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="container mx-auto px-4 py-10 max-w-4xl"
+          className="container mx-auto px-4 py-10 max-w-7xl"
         >
           {/* Hero Section */}
           <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden mb-8">

@@ -1,6 +1,6 @@
 # Gusto's Meals ✨
 
-![Gusto's Meals Screenshot](https://drive.google.com/uc?export=view&id=1oAaO4XckdIc-ILE1sPqbgQJVkLuVmK9s)
+![Gusto's Meals Screenshot](https://gusto-s-meals.vercel.app/)
 
 Welcome to **Gusto's Meals**, your ultimate culinary companion! This dynamic web application, crafted with the power of React, TypeScript, and Vite, is designed to transform your cooking experience. Dive into a world of flavors, effortlessly discover new recipes, and unleash your inner chef with our intuitive features.
 
@@ -107,7 +107,13 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 
 *   [TheMealDB API](https://www.themealdb.com/api.php) for providing the recipe data.
 *   [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [Tailwind CSS](https://tailwindcss.com/), [React Query](https://tanstack.com/query/latest), and [Framer Motion](https://www.framer.com/motion/) for the amazing tools and libraries.
+*   Made with passion by [Zeyad Hyman](https://zeyadhyman.netlify.app/).
 
 ## 📞 Contact
 
-Have questions or feedback? Reach out to us at [your-email@example.com](mailto:zeyadhyman@gmail.com).
+Have questions or feedback? Reach out to me:
+
+*   **Email:** [zeyadhyman@gmail.com](mailto:zeyadhyman@gmail.com)
+*   **GitHub:** [zeyadhyman](https://github.com/zeyadhyman)
+*   **LinkedIn:** [zeyadhyman](https://linkedin.com/in/zeyadhyman)
+*   **Instagram:** [zeyadhyman](https://instagram.com/zeyadhyman)

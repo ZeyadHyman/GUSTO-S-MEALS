@@ -1,10 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  FaUtensils,
-  FaSearch,
-} from "react-icons/fa";
+import { FaUtensils, FaSearch } from "react-icons/fa";
 
 function Navbar() {
   const [opened, setOpened] = useState(false);
@@ -177,11 +174,11 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 bg-white shadow-lg md:hidden"
+            className="fixed top-[72px] left-0 right-0 bottom-0 bg-white/95 backdrop-blur-md shadow-lg md:hidden z-50"
           >
-            <div className="flex flex-col p-4">
+            <div className="flex flex-col p-4 h-full overflow-y-auto">
               {/* Mobile Search */}
-              <div className="mb-4">
+              <div className="mb-4 sticky top-0 bg-white/95 backdrop-blur-md py-2">
                 <form>
                   <div className="relative">
                     <input
@@ -196,16 +193,18 @@ function Navbar() {
                   </div>
                 </form>
               </div>
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setOpened(false)}
-                  className="py-3 px-4 text-text-dark hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200 flex items-center gap-3"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              <div className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setOpened(false)}
+                    className="py-3 px-4 text-text-dark hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200 flex items-center gap-3 text-lg"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}

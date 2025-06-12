@@ -1,9 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
-import "swiper/css";
-import "swiper/css/navigation";
-import { useRef } from "react";
+import "swiper/swiper-bundle.css";
+import { useRef, useEffect } from "react";
 import type SwiperCore from "swiper";
 import { BiWorld } from "react-icons/bi";
 
@@ -19,6 +18,23 @@ function WorldKitchen() {
       },
     },
   };
+
+  // Handle touch events for better mobile support
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, []);
+
   const cuisineSlides = [
     {
       image: "/Images/Country_Meals/usa.webp",
@@ -226,31 +242,33 @@ function WorldKitchen() {
   ];
 
   return (
-    <div className="py-8 px-4 bg-black/3 h-[calc(100vh-100px)] overflow-hidden">
+    <div className="py-5 px-4 bg-black/3 min-h-[calc(100vh-100px)] overflow-hidden">
       <motion.h1
-        className="text-4xl md:text-5xl font-bold text-center mb-12 text-primary flex items-center justify-center gap-3"
+        className="text-2xl md:text-5xl font-bold text-center mb-8 md:mb-12 text-primary flex items-center justify-center gap-3"
         variants={itemVariants}
       >
         Discover Different Meals Around The World
         <motion.span
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="hidden sm:block"
         >
           <BiWorld className="text-4xl md:text-5xl" />
         </motion.span>
       </motion.h1>
 
-      <div className="px-4 md:px-20 lg:px-40 relative ">
+      <div className="px-2 sm:px-4 md:px-20 lg:px-40 relative">
         <Swiper
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
           modules={[Autoplay, Navigation]}
-          spaceBetween={20}
+          spaceBetween={10}
           slidesPerView={1}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           navigation={{
             prevEl: ".custom-swiper-button-prev",
@@ -259,14 +277,26 @@ function WorldKitchen() {
           }}
           centeredSlides={true}
           breakpoints={{
+            480: {
+              slidesPerView: 1.2,
+              spaceBetween: 10,
+            },
             640: {
               slidesPerView: 2,
+              spaceBetween: 15,
             },
             1024: {
               slidesPerView: 3,
+              spaceBetween: 20,
             },
           }}
-          className="h-[600px] md:h-[700px]"
+          className="h-[500px] sm:h-[600px] md:h-[700px]"
+          touchRatio={1.5}
+          touchAngle={45}
+          resistance={true}
+          resistanceRatio={0.85}
+          watchOverflow={true}
+          preventInteractionOnTransition={true}
         >
           {cuisineSlides.map((slide, index) => (
             <SwiperSlide
@@ -281,28 +311,36 @@ function WorldKitchen() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 block cursor-pointer group"
                 whileHover={{ scale: 1.03 }}
+                style={{
+                  WebkitTapHighlightColor: "transparent",
+                  touchAction: "manipulation",
+                }}
               >
                 <img
                   src={slide.image}
                   alt={slide.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  decoding="async"
                 />
-                <div className="absolute top-4 left-4 rounded-full h-12 w-12 flex justify-center items-center shadow-2xl border border-white bg-white/10 backdrop-blur-sm">
+                <div className="absolute top-4 left-4 rounded-full h-10 w-10 sm:h-12 sm:w-12 flex justify-center items-center shadow-2xl border border-white bg-white/10 backdrop-blur-sm">
                   <motion.img
                     src={slide.flag}
                     alt={`${slide.title} flag`}
-                    className="w-9 h-9 object-contain"
+                    className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
                     whileHover={{ rotate: 10 }}
                     transition={{ duration: 0.3 }}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white">
                   <motion.h3
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-2xl font-bold mb-2 drop-shadow-md"
+                    className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 drop-shadow-md"
                   >
                     {slide.title}
                   </motion.h3>
@@ -310,7 +348,7 @@ function WorldKitchen() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="text-lg opacity-90 drop-shadow-sm"
+                    className="text-base sm:text-lg opacity-90 drop-shadow-sm line-clamp-2"
                   >
                     {slide.description}
                   </motion.p>
@@ -320,9 +358,13 @@ function WorldKitchen() {
           ))}
         </Swiper>
         <motion.div
-          className="custom-swiper-button-prev absolute top-1/2 left-0 -translate-y-1/2 z-10 bg-white/30 p-3 rounded-full cursor-pointer shadow-lg hover:bg-white/50 transition-colors duration-300 hidden md:flex items-center justify-center -ml-4"
+          className="custom-swiper-button-prev absolute top-1/2 left-0 -translate-y-1/2 z-10 bg-white/30 p-2 sm:p-3 rounded-full cursor-pointer shadow-lg hover:bg-white/50 transition-colors duration-300 hidden sm:flex items-center justify-center -ml-2 sm:-ml-4"
           whileHover={{ scale: 1.1 }}
           onClick={() => swiperRef.current?.slidePrev()}
+          style={{
+            WebkitTapHighlightColor: "transparent",
+            touchAction: "manipulation",
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -330,7 +372,8 @@ function WorldKitchen() {
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="w-6 h-6 text-primary"
+            className="w-5 h-5 sm:w-6 sm:h-6 text-primary"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -340,9 +383,13 @@ function WorldKitchen() {
           </svg>
         </motion.div>
         <motion.div
-          className="custom-swiper-button-next absolute top-1/2 right-0 -translate-y-1/2 z-10 bg-white/30 p-3 rounded-full cursor-pointer shadow-lg hover:bg-white/50 transition-colors duration-300 hidden md:flex items-center justify-center -mr-4"
+          className="custom-swiper-button-next absolute top-1/2 right-0 -translate-y-1/2 z-10 bg-white/30 p-2 sm:p-3 rounded-full cursor-pointer shadow-lg hover:bg-white/50 transition-colors duration-300 hidden sm:flex items-center justify-center -mr-2 sm:-mr-4"
           whileHover={{ scale: 1.1 }}
           onClick={() => swiperRef.current?.slideNext()}
+          style={{
+            WebkitTapHighlightColor: "transparent",
+            touchAction: "manipulation",
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -350,7 +397,8 @@ function WorldKitchen() {
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="w-6 h-6 text-primary"
+            className="w-5 h-5 sm:w-6 sm:h-6 text-primary"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"

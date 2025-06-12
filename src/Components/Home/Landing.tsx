@@ -2,9 +2,13 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 function Landing() {
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-text-black to-text-dark pt-10 lg:pt-0">
+    <div
+      className="min-h-screen relative pt-10 lg:pt-0"
+      style={{
+        background: `linear-gradient(to bottom, var(--color-text-black), var(--color-text-dark), var(--color-text-black))`,
+      }}
+    >
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -13,8 +17,19 @@ function Landing() {
         className="relative min-h-screen flex flex-col-reverse lg:flex-row items-center justify-between px-4 sm:px-6 lg:px-16 py-12 gap-8 lg:gap-0 overflow-hidden"
       >
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
+        <div className="absolute inset-0">
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              background: `radial-gradient(circle at center, var(--color-primary) 0%, transparent 70%)`,
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent)`,
+            }}
+          />
         </div>
 
         {/* Text Content */}
@@ -22,13 +37,13 @@ function Landing() {
           initial={{ x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.2 }}
-          className="z-10 lg:min-w-3xl text-center lg:text-left lg:ml-50 flex-1"
+          className="z-10 lg:min-w-3xl text-center lg:text-left lg:ml-50 flex-1 mt-8 lg:mt-0"
         >
           <motion.h1
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.2 }}
-            className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+            className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight"
           >
             <motion.span
               initial={{ opacity: 0, y: 10 }}
@@ -40,7 +55,7 @@ function Landing() {
               <span className="text-primary relative">
                 Recipes
                 <motion.span
-                  className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50"
+                  className="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-0.5 sm:h-1 bg-primary/50"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.2 }}
@@ -57,7 +72,7 @@ function Landing() {
               <span className="text-primary relative">
                 the World
                 <motion.span
-                  className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50"
+                  className="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-0.5 sm:h-1 bg-primary/50"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.2, delay: 0.1 }}
@@ -69,7 +84,7 @@ function Landing() {
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.2, delay: 0.2 }}
-            className="text-cream text-lg sm:text-xl mt-8 max-w-2xl"
+            className="text-cream text-base sm:text-lg lg:text-xl mt-6 sm:mt-8 max-w-2xl mx-auto lg:mx-0"
           >
             Explore delicious meals, cooking inspiration, and recipe details.
             Start your next culinary adventure today!
@@ -78,22 +93,25 @@ function Landing() {
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.2, delay: 0.3 }}
-            className="mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4"
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4"
           >
             <Link
               to="/meals"
-              className="group relative bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-primary/20"
+              className="group relative bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-primary/20"
             >
               <span className="relative z-10">Explore Recipes</span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary to-accent-vibrant opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                style={{
+                  background: `linear-gradient(to right, var(--color-primary), var(--color-accent-vibrant))`,
+                }}
                 initial={false}
                 whileHover={{ scale: 1.05 }}
               />
             </Link>
             <Link
               to="/categories"
-              className="group relative bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg font-semibold overflow-hidden transition-all duration-200 hover:bg-white/20"
+              className="group relative bg-white/10 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold overflow-hidden transition-all duration-200 hover:bg-white/20"
             >
               <span className="relative z-10">Browse Categories</span>
             </Link>
@@ -105,7 +123,7 @@ function Landing() {
           initial={{ x: 20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.2 }}
-          className="z-10 w-full max-w-xl lg:max-w-2xl transform lg:mr-50 flex justify-center items-center"
+          className="z-10 w-full max-w-[280px] sm:max-w-xl lg:max-w-2xl transform lg:mr-50 flex justify-center items-center"
         >
           <motion.div
             whileHover={{ scale: 1.02, rotate: 1 }}
@@ -113,7 +131,10 @@ function Landing() {
             className="relative"
           >
             <motion.div
-              className="absolute inset-0 bg-primary/20 rounded-full blur-3xl"
+              className="absolute inset-0 rounded-full blur-3xl"
+              style={{
+                background: `var(--color-primary)`,
+              }}
               animate={{
                 scale: [1, 1.1, 1],
                 opacity: [0.3, 0.4, 0.3],
@@ -127,13 +148,11 @@ function Landing() {
             <img
               src="Images/pan.png"
               alt="Cooking Pan with Food"
-              className="relative w-80 lg:w-full h-auto object-contain"
+              className="relative w-full h-auto object-contain"
             />
           </motion.div>
         </motion.div>
       </motion.div>
-
-
     </div>
   );
 }

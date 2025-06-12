@@ -8,6 +8,7 @@ import AllCategories from "./Pages/AllCategories";
 import NoPage from "./Pages/NoPage";
 import ChatBot from "./Pages/ChatBot";
 import Footer from "./Components/Footer";
+import Search from "./Pages/Search";
 
 function App() {
   const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ function App() {
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/recipes/:category" element={<Recipes />} />
             <Route path="/ai-chef" element={<ChatBot />} />
+            <Route path="/search" element={<Search />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
           <ScrollToTop />

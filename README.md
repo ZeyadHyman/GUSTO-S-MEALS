@@ -1,6 +1,6 @@
 # Gusto's Meals ✨
 
-![Gusto's Meals Screenshot](https://gusto-s-meals.vercel.app/)
+![Gusto's Meals Screenshot](https://drive.google.com/uc?export=view&id=1oAaO4XckdIc-ILE1sPqbgQJVkLuVmK9s)
 
 Welcome to **Gusto's Meals**, your ultimate culinary companion! This dynamic web application, crafted with the power of React, TypeScript, and Vite, is designed to transform your cooking experience. Dive into a world of flavors, effortlessly discover new recipes, and unleash your inner chef with our intuitive features.
 
@@ -20,7 +20,7 @@ At Gusto's Meals, we believe that cooking should be an enjoyable and accessible 
 ## 💡 Built With
 
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-317.8C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)](https://tanstack.com/query/latest)
@@ -52,7 +52,11 @@ Follow these simple steps to get Gusto's Meals up and running on your local mach
 
 Once the server is running, open your browser and navigate to `http://localhost:5173` (or the port indicated in your terminal).
 
-## 📁 Project Structure
+## 🌐 Live Demo
+
+Check out the live version of Gusto's Meals here: [https://gusto-s-meals.vercel.app/](https://gusto-s-meals.vercel.app/)
+
+## �� Project Structure
 
 ```
 .

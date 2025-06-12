@@ -242,11 +242,18 @@ function WorldKitchen() {
   ];
 
   return (
-    <div className="py-5 px-4 bg-black/3 min-h-[calc(100vh-100px)] overflow-hidden">
+    <div className="py-10 px-4 bg-black/3 min-h-[calc(100vh-100px)] overflow-hidden">
       <motion.h1
         className="text-2xl md:text-5xl font-bold text-center mb-8 md:mb-12 text-primary flex items-center justify-center gap-3"
         variants={itemVariants}
       >
+        <motion.span
+          animate={{ rotate: -360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="hidden sm:block"
+        >
+          <BiWorld className="text-4xl md:text-5xl" />
+        </motion.span>
         Discover Different Meals Around The World
         <motion.span
           animate={{ rotate: 360 }}

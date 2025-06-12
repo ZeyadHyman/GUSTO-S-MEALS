@@ -7,6 +7,7 @@ import Home from "./Pages/Home";
 import AllCategories from "./Pages/AllCategories";
 import NoPage from "./Pages/NoPage";
 import ChatBot from "./Pages/ChatBot";
+import SingleRecipe from "./Pages/SingleRecipe";
 import Footer from "./Components/Footer";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/recipes/:category" element={<Recipes />} />
             <Route path="/ai-chef" element={<ChatBot />} />
+            <Route path="/recipe/:idMeal" element={<SingleRecipe />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
           <ScrollToTop />

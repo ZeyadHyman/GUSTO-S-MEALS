@@ -143,14 +143,17 @@ function Recipes() {
                       <div className="relative  overflow-hidden">
                         <img
                           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                          src={meal.strMealThumb}
+                          src={`${meal.strMealThumb}/medium`}
                           alt={`Recipe: ${meal.strMeal}`}
                           loading="lazy"
                         />
                         <div className="absolute  recipeinset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
 
-                      <div className="text-center mt-5 text-xl px-4"> {meal.strMeal}</div>
+                      <div className="text-center mt-5 text-xl px-4">
+                        {" "}
+                        {meal.strMeal}
+                      </div>
 
                       <div className="p-6 flex flex-col items-center">
                         <motion.div

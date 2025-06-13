@@ -43,9 +43,9 @@ function Navbar() {
       className={`top-0 left-0 right-0 px-4 lg:px-6 py-3 flex items-center justify-between z-50 transition-all duration-200 ${
         isHomePage
           ? scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg fixed"
+            ? "bg-white backdrop-blur-md shadow-lg fixed"
             : "bg-transparent fixed"
-          : "bg-white/95 backdrop-blur-md shadow-lg sticky"
+          : "bg-white backdrop-blur-md shadow-lg sticky"
       }`}
     >
       <Link to="/" className="flex items-center gap-2">
@@ -174,20 +174,20 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[72px] left-0 right-0 bottom-0 bg-white/95 backdrop-blur-md shadow-lg md:hidden z-50"
+            className="fixed top-[68px] left-0 right-0 bg-white backdrop-blur-md shadow-lg md:hidden z-[10000000000] "
           >
             <div className="flex flex-col p-4 h-full overflow-y-auto">
               {/* Mobile Search */}
-              <div className="mb-4 sticky top-0 bg-white/95 backdrop-blur-md py-2">
+              <div className="mb-4 sticky top-0 bg-white backdrop-blur-md py-2">
                 <form>
                   <div className="relative">
                     <input
                       type="search"
                       placeholder="Search recipes..."
-                      className="w-full rounded-full border-2 border-gray-200 bg-white py-2 pl-10 pr-4 text-text-dark placeholder-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+                      className="w-full rounded-full border-2 border-white bg-primary py-2 pl-10 pr-4 text-white placeholder-white focus:border-white focus:ring-2 focus:ring-white focus:outline-none transition-all duration-200"
                     />
                     <FaSearch
-                      className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+                      className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white"
                       aria-hidden="true"
                     />
                   </div>

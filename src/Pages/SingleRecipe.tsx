@@ -107,7 +107,7 @@ function SingleRecipe() {
           {/* Hero Image */}
           <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
             <img
-              src={mealWithIngredients.strMealThumb || "/placeholder-image.jpg"}
+              src={`${mealWithIngredients.strMealThumb}`}
               alt={mealWithIngredients.strMeal}
               className="w-full h-80 sm:h-96 object-cover"
               loading="lazy"

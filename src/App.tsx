@@ -11,8 +11,13 @@ import SingleRecipe from "./Pages/SingleRecipe";
 import Footer from "./Components/Footer";
 
 function App() {
-  const queryClient = new QueryClient();
-
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -24,6 +29,7 @@ function App() {
             <Route path="/recipes/:category" element={<Recipes />} />
             <Route path="/ai-chef" element={<ChatBot />} />
             <Route path="/recipe/:idMeal" element={<SingleRecipe />} />
+            <Route path="/random-meal" element={<SingleRecipe />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
           <ScrollToTop />

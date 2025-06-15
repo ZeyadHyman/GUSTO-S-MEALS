@@ -119,29 +119,6 @@ function SingleRecipe() {
             </div>
           </div>
 
-          {/* Metadata */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-10">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div>
-                <h2 className="text-xl font-bold text-amber-600 mb-1 tracking-wide flex items-center gap-2">
-                  <span>🌍</span>
-                  <span>Country</span>
-                </h2>
-                <p className="text-gray-800 text-base leading-relaxed">
-                  {mealWithIngredients.strArea || "N/A"}
-                </p>
-              </div>
-              <div>
-                <h2 className="text-xl font-bold text-amber-600 mb-1 tracking-wide flex items-center gap-2">
-                  <span>🍴</span>
-                  <span>Category</span>
-                </h2>
-                <p className="text-gray-800 text-base leading-relaxed">
-                  {mealWithIngredients.strCategory || "N/A"}
-                </p>
-              </div>
-            </div>
-          </div>
 
           {/* Ingredients */}
           <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">

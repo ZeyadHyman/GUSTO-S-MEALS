@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import {
   FaYoutube,
   FaExternalLinkAlt,
-  FaSpinner,
   FaUtensils,
 } from "react-icons/fa";
 

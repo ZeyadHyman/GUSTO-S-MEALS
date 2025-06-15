@@ -122,7 +122,7 @@ function SingleRecipe() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="container mx-auto px-4 py-12 max-w-5xl"
+          className="container mx-auto px-4 py-12 max-w-7xl"
         >
           {/* Hero Section */}
           <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden mb-10 group">

@@ -1,12 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaUtensils, FaSearch } from "react-icons/fa";
 
 function Navbar() {
   const [opened, setOpened] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [search, setSearch] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isHomePage = location.pathname === "/";
 
@@ -55,15 +57,13 @@ function Navbar() {
           className="w-10 h-10 flex items-center justify-center"
         >
           <FaUtensils
-            className={`w-6 h-6 ${
-              isHomePage && !scrolled ? "text-white" : "text-primary"
-            }`}
+            className={`w-6 h-6 ${isHomePage && !scrolled ? "text-white" : "text-primary"
+              }`}
           />
         </motion.div>
         <motion.span
-          className={`text-xl lg:text-2xl font-bold ${
-            isHomePage && !scrolled ? "text-white" : "text-text-dark"
-          }`}
+          className={`text-xl lg:text-2xl font-bold ${isHomePage && !scrolled ? "text-white" : "text-text-dark"
+            }`}
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         >
@@ -77,11 +77,10 @@ function Navbar() {
           <Link
             key={item.path}
             to={item.path}
-            className={`group relative font-medium flex items-center gap-2 ${
-              isHomePage && !scrolled
-                ? "text-white hover:text-primary"
-                : "text-text-dark hover:text-primary"
-            }`}
+            className={`group relative font-medium flex items-center gap-2 ${isHomePage && !scrolled
+              ? "text-white hover:text-primary"
+              : "text-text-dark hover:text-primary"
+              }`}
           >
             <span className="relative">
               {item.name}
@@ -104,21 +103,29 @@ function Navbar() {
         transition={{ duration: 0.2 }}
         className="hidden md:block w-full max-w-xs"
       >
-        <form>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            if (search.trim()) {
+              navigate(`/search?q=${encodeURIComponent(search.trim())}`);
+              setSearch("");
+            }
+          }}
+        >
           <div className="relative">
             <input
               type="search"
               placeholder="Search recipes..."
-              className={`w-full rounded-full border-2 ${
-                isHomePage && !scrolled
-                  ? "border-white/20 bg-white/10 text-white placeholder-white/60"
-                  : "border-gray-200 bg-white/80 text-text-dark placeholder-gray-400"
-              } py-2 pl-10 pr-4 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200`}
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className={`w-full rounded-full border-2 ${isHomePage && !scrolled
+                ? "border-white/20 bg-white/10 text-white placeholder-white/60"
+                : "border-gray-200 bg-white/80 text-text-dark placeholder-gray-400"
+                } py-2 pl-10 pr-4 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200`}
             />
             <FaSearch
-              className={`absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 ${
-                isHomePage && !scrolled ? "text-white/60" : "text-gray-400"
-              }`}
+              className={`absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 ${isHomePage && !scrolled ? "text-white/60" : "text-gray-400"
+                }`}
               aria-hidden="true"
             />
           </div>
@@ -128,13 +135,12 @@ function Navbar() {
       {/* Mobile Menu Button */}
       <motion.button
         whileTap={{ scale: 0.95 }}
-        className={`md:hidden p-2 rounded-lg ${
-          opened
-            ? "bg-primary text-white"
-            : isHomePage && !scrolled
+        className={`md:hidden p-2 rounded-lg ${opened
+          ? "bg-primary text-white"
+          : isHomePage && !scrolled
             ? "bg-white/10 text-white"
             : "bg-white text-text-dark"
-        } shadow-md transition-all duration-200`}
+          } shadow-md transition-all duration-200`}
         onClick={() => setOpened(!opened)}
         aria-expanded={opened}
         aria-label="Toggle menu"
@@ -178,13 +184,26 @@ function Navbar() {
           >
             <div className="flex flex-col p-4 h-full overflow-y-auto">
               {/* Mobile Search */}
-              <div className="mb-4 sticky top-0 bg-white backdrop-blur-md py-2">
-                <form>
+
+              <div className="mb-4">
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    if (search.trim()) {
+                      navigate(`/search?q=${encodeURIComponent(search.trim())}`);
+                      setSearch("");
+                      setOpened(false);
+                    }
+                  }}
+                >
                   <div className="relative">
                     <input
                       type="search"
                       placeholder="Search recipes..."
-                      className="w-full rounded-full border-2 border-white bg-primary py-2 pl-10 pr-4 text-white placeholder-white focus:border-white focus:ring-2 focus:ring-white focus:outline-none transition-all duration-200"
+
+                      value={search}
+                      onChange={e => setSearch(e.target.value)}
+                      className="w-full rounded-full border-2 border-gray-200 bg-white py-2 pl-10 pr-4 text-text-dark placeholder-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
                     />
                     <FaSearch
                       className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white"

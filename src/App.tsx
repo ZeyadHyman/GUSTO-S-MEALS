@@ -9,6 +9,7 @@ import NoPage from "./Pages/NoPage";
 import ChatBot from "./Pages/ChatBot";
 import SingleRecipe from "./Pages/SingleRecipe";
 import Footer from "./Components/Footer";
+import Search from "./Pages/Search";
 
 function App() {
 const queryClient = new QueryClient({
@@ -30,6 +31,7 @@ const queryClient = new QueryClient({
             <Route path="/ai-chef" element={<ChatBot />} />
             <Route path="/recipe/:idMeal" element={<SingleRecipe />} />
             <Route path="/random-meal" element={<SingleRecipe />} />
+            <Route path="/search" element={<Search />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
           <ScrollToTop />

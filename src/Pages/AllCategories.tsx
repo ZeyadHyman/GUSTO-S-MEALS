@@ -31,7 +31,6 @@ function AllCategories() {
     retry: 2,
   });
 
-
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({
@@ -68,8 +67,6 @@ function AllCategories() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
-
-
         <AnimatePresence>
           {isLoading ? (
             <motion.div
@@ -122,43 +119,43 @@ function AllCategories() {
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16"
               >
                 {data?.categories.map((category, index) => (
-                  <motion.div
-                    key={category.idCategory}
-                    custom={index}
-                    initial="hidden"
-                    animate="visible"
-                    variants={cardVariants}
-                    whileHover={{ scale: 1.03 }}
-                    className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  <Link
+                    to={`/recipes/${category.strCategory.toLowerCase()}`}
+                    aria-label={`View recipes for ${category.strCategory}`}
                   >
-                    <div className="relative h-56 overflow-hidden">
-                      <img
-                        src={category.strCategoryThumb}
-                        alt={`Category: ${category.strCategory}`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <span className="absolute top-4 left-4 bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full group-hover:bg-primary/80 transition-colors">
-                        {category.strCategory}
-                      </span>
-                    </div>
-                    <div className="p-6">
-                      <p className="text-gray-600 text-sm mb-4 font-sans line-clamp-3">
-                        {category.strCategoryDescription}
-                      </p>
-                      <Link
-                        to={`/recipes/${category.strCategory.toLowerCase()}`}
-                        className="block w-full px-4 py-2 text-center bg-primary text-white rounded-lg hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-95 transition-all duration-300"
-                        aria-label={`View recipes for ${category.strCategory}`}
-                      >
-                        View Recipes
-                      </Link>
-                    </div>
-                  </motion.div>
+                    <motion.div
+                      key={category.idCategory}
+                      custom={index}
+                      initial="hidden"
+                      animate="visible"
+                      variants={cardVariants}
+                      whileHover={{ scale: 1.03 }}
+                      className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    >
+                      <div className="relative h-56 overflow-hidden">
+                        <img
+                          src={category.strCategoryThumb}
+                          alt={`Category: ${category.strCategory}`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span className="absolute top-4 left-4 bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full group-hover:bg-primary/80 transition-colors">
+                          {category.strCategory}
+                        </span>
+                      </div>
+                      <div className="p-6">
+                        <p className="text-gray-600 text-sm mb-4 font-sans line-clamp-3">
+                          {category.strCategoryDescription}
+                        </p>
+                        <h1 className="block w-full px-4 py-2 text-center bg-primary text-white rounded-lg hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 active:scale-95 transition-all duration-300">
+                          View Recipes
+                        </h1>
+                      </div>
+                    </motion.div>
+                  </Link>
                 ))}
               </motion.div>
-
             </>
           )}
         </AnimatePresence>

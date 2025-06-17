@@ -139,35 +139,39 @@ function Recipes() {
                     whileHover={{ scale: 1.03 }}
                     className="group"
                   >
-                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full">
-                      <div className="relative  overflow-hidden">
-                        <img
-                          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                          src={meal.strMealThumb}
-                          alt={`Recipe: ${meal.strMeal}`}
-                          loading="lazy"
-                        />
-                        <div className="absolute  inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
+                    <Link
+                      to={`/recipe/${meal.idMeal}`}
+                      aria-label={`View recipe for ${meal.strMeal}`}
+                    >
+                      <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full">
+                        <div className="relative  overflow-hidden">
+                          <img
+                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            src={`${meal.strMealThumb}/medium`}
+                            alt={`Recipe: ${meal.strMeal}`}
+                            loading="lazy"
+                          />
+                          <div className="absolute  recipeinset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
 
-                      <div className="text-center mt-5 text-xl px-4"> {meal.strMeal}</div>
+                        <div className="text-center mt-5 text-xl px-4">
+                          {" "}
+                          {meal.strMeal}
+                        </div>
 
-                      <div className="p-6 flex flex-col items-center">
-                        <motion.div
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <Link
-                            to={`/recipe/${meal.idMeal}`}
-                            className="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300"
-                            aria-label={`View recipe for ${meal.strMeal}`}
+                        <div className="p-6 flex flex-col items-center">
+                          <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                           >
-                            View Recipe
-                            <FaArrowRight className="w-4 h-4 ml-2" />
-                          </Link>
-                        </motion.div>
+                            <h1 className="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-primary rounded-lg hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors duration-300">
+                              View Recipe
+                              <FaArrowRight className="w-4 h-4 ml-2" />
+                            </h1>
+                          </motion.div>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   </motion.div>
                 ))}
               </motion.div>

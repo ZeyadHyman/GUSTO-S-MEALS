@@ -7,12 +7,18 @@ import Home from "./Pages/Home";
 import AllCategories from "./Pages/AllCategories";
 import NoPage from "./Pages/NoPage";
 import ChatBot from "./Pages/ChatBot";
+import SingleRecipe from "./Pages/SingleRecipe";
 import Footer from "./Components/Footer";
 import Search from "./Pages/Search";
 
 function App() {
-  const queryClient = new QueryClient();
-
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -23,6 +29,8 @@ function App() {
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/recipes/:category" element={<Recipes />} />
             <Route path="/ai-chef" element={<ChatBot />} />
+            <Route path="/recipe/:idMeal" element={<SingleRecipe />} />
+            <Route path="/random-meal" element={<SingleRecipe />} />
             <Route path="/search" element={<Search />} />
             <Route path="*" element={<NoPage />} />
           </Routes>

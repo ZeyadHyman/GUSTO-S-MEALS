@@ -149,13 +149,13 @@ const Footer = () => {
             <p className="text-sm text-gray-600">
               © {currentYear} Gusto's Meals. All rights reserved.
             </p>
-            <div className="text-sm text-gray-600 flex items-center">
+            <div className="text-sm text-gray-600">
               Made by{" "}
               <a
                 href="https://zeyadhyman.netlify.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-1 text-primary hover:text-primary/80 transition-colors font-medium"
+                className="text-primary hover:text-primary/80 transition-colors font-medium"
               >
                 Zeyad Hyman
               </a>

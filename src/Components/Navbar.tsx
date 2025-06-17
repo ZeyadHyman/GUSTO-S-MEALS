@@ -1,10 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  FaUtensils,
-  FaSearch,
-} from "react-icons/fa";
+import { FaUtensils, FaSearch } from "react-icons/fa";
 
 function Navbar() {
   const [opened, setOpened] = useState(false);
@@ -45,12 +42,13 @@ function Navbar() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
-      className={`top-0 left-0 right-0 px-4 lg:px-6 py-3 flex items-center justify-between z-50 transition-all duration-200 ${isHomePage
-        ? scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg fixed"
-          : "bg-transparent fixed"
-        : "bg-white/95 backdrop-blur-md shadow-lg sticky"
-        }`}
+      className={`top-0 left-0 right-0 px-4 lg:px-6 py-3 flex items-center justify-between z-50 transition-all duration-200 ${
+        isHomePage
+          ? scrolled
+            ? "bg-white backdrop-blur-md shadow-lg fixed"
+            : "bg-transparent fixed"
+          : "bg-white backdrop-blur-md shadow-lg sticky"
+      }`}
     >
       <Link to="/" className="flex items-center gap-2">
         <motion.div
@@ -182,10 +180,11 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 bg-white shadow-lg md:hidden"
+            className="fixed top-[68px] left-0 right-0 bg-white backdrop-blur-md shadow-lg md:hidden z-[10000000000] "
           >
-            <div className="flex flex-col p-4">
+            <div className="flex flex-col p-4 h-full overflow-y-auto">
               {/* Mobile Search */}
+
               <div className="mb-4">
                 <form
                   onSubmit={e => {
@@ -201,27 +200,30 @@ function Navbar() {
                     <input
                       type="search"
                       placeholder="Search recipes..."
+
                       value={search}
                       onChange={e => setSearch(e.target.value)}
                       className="w-full rounded-full border-2 border-gray-200 bg-white py-2 pl-10 pr-4 text-text-dark placeholder-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-200"
                     />
                     <FaSearch
-                      className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+                      className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white"
                       aria-hidden="true"
                     />
                   </div>
                 </form>
               </div>
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setOpened(false)}
-                  className="py-3 px-4 text-text-dark hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200 flex items-center gap-3"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              <div className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setOpened(false)}
+                    className="py-3 px-4 text-text-dark hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-200 flex items-center gap-3 text-lg"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
